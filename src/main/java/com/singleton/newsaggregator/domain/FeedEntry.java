@@ -20,6 +20,9 @@ public class FeedEntry {
     private Calendar created;
 
     @Column
+    private String link;
+
+    @Column
     private String title;
 
     @Column
@@ -39,6 +42,14 @@ public class FeedEntry {
 
     public void setCreated(Calendar created) {
         this.created = created;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getTitle() {
