@@ -31,7 +31,7 @@ public class FeedAggregator {
     }
 
     @Scheduled(fixedDelay = 300_000, initialDelay = 0)
-    protected void aggregate() {
+    public void aggregate() {
         for (var source : aggregatorConfig.getSources()) {
             aggregateEntry(source);
         }
