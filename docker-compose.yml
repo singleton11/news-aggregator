@@ -1,0 +1,13 @@
+# This docker-compose file only for local development.
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres:10
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=newsaggregator
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=manager
