@@ -9,6 +9,13 @@ import org.xml.sax.InputSource;
 
 import java.io.StringReader;
 
+/**
+ * Basic implementation of source type determination.
+ * <p>
+ * Algorithm is super easy: if string data passed to `determine` method opens as RSS/Atom feed. It's
+ * RSS/Atom, HTML otherwise
+ * </p>
+ */
 @Service
 public class SourceTypeDeterminatorImpl implements SourceTypeDeterminator {
 
