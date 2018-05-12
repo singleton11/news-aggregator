@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import java.util.Calendar;
 
 @Entity
-public class FeedEntity {
+public class FeedEntry {
     @Id
     @Column
     @GeneratedValue
