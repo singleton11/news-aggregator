@@ -26,7 +26,7 @@ public class FeedEntry {
     private String title;
 
     @Column
-    private String text;
+    private String body;
 
     public Long getId() {
         return id;
@@ -60,11 +60,11 @@ public class FeedEntry {
         this.title = title;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 }
