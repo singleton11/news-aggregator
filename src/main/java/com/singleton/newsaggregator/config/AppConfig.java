@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 @Configuration
 @EnableScheduling
 @EnableAsync
+@EnableRetry
 public class AppConfig {
 
     private static Logger logger = LoggerFactory.getLogger(AppConfig.class);
