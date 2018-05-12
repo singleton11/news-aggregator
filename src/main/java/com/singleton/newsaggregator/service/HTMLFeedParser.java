@@ -3,6 +3,7 @@ package com.singleton.newsaggregator.service;
 import com.singleton.newsaggregator.domain.FeedEntry;
 import org.jsoup.nodes.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HTMLFeedParser implements FeedParser {
@@ -11,19 +12,24 @@ public class HTMLFeedParser implements FeedParser {
 
     @Override
     public List<FeedEntry> parseForFeedEntries() {
-        return null;
-    }
+        var containers = document.select("article");
+        var feedEntries = new ArrayList<FeedEntry>();
 
-    public Document getDocument() {
-        return document;
-    }
+        for (var container : containers) {
+            var title = container.select("a.post__title_link");
+            var body = container.select("div.post__text");
 
-    public void setDocument(Document document) {
-        this.document = document;
+            var feedEntry = new FeedEntry();
+            feedEntry.setLink(title.attr("href"));
+            feedEntry.setTitle(title.text());
+            feedEntry.setBody(body.text());
+
+            feedEntries.add(feedEntry);
+        }
+        return feedEntries;
     }
 
     public HTMLFeedParser(Document document) {
-
         this.document = document;
     }
 }
