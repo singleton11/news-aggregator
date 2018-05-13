@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class FeedEntryAggregator {
@@ -29,14 +29,15 @@ public class FeedEntryAggregator {
 
     @Async
     @Retryable(backoff = @Backoff(delay = 500))
-    public void aggregateEntry(HashMap<String, String> source) {
+    public void aggregateEntry(Map<String, String> source) {
         var response = restTemplate.getForObject(source.get("link"), String.class);
         var parser = ParserFactory.getParserInstance(response, source);
         feedEntryService.saveEntries(parser.parseForFeedEntries());
     }
 
     @Recover
-    public void recover(Exception e) {
-        logger.error("Something goes wrong while grabbing news", e);
+    public void recover(Exception e, Map<String, String> source) {
+        logger.error("Something goes wrong while grabbing news when getting " + source.get("link"),
+                     e);
     }
 }
