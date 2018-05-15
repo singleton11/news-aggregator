@@ -1,21 +1,33 @@
 package com.singleton.newsaggregator.util;
 
+import com.singleton.newsaggregator.service.FeedParser;
 import com.singleton.newsaggregator.service.HTMLFeedParser;
 import com.singleton.newsaggregator.service.RSSFeedParser;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
 
 public class ParserFactoryTests {
 
+    private ParserFactory parserFactory;
+
+    public ParserFactoryTests() {
+        var serviceMap = new HashMap<String, FeedParser>();
+        serviceMap.put("RSSFeedParser", new RSSFeedParser());
+        serviceMap.put("HTMLFeedParser", new HTMLFeedParser());
+        parserFactory = new ParserFactory(serviceMap);
+    }
+
     @Test
     public void returnsHTMLFeedParserInEmptyData() {
-        assertTrue(ParserFactory.getParserInstance("", null) instanceof HTMLFeedParser);
+        assertTrue(parserFactory.getParserInstance("", null) instanceof HTMLFeedParser);
     }
 
     @Test
     public void returnsHTMLFeedParserOnCorrectHTML() {
-        assertTrue(ParserFactory.getParserInstance(
+        assertTrue(parserFactory.getParserInstance(
                 "<html>" +
                         "</html>", null) instanceof HTMLFeedParser);
     }
@@ -25,7 +37,7 @@ public class ParserFactoryTests {
      */
     @Test
     public void returnsHTMLFeedParserOnCorrectXML() {
-        assertTrue(ParserFactory.getParserInstance(
+        assertTrue(parserFactory.getParserInstance(
                 "\n" +
                         "<note>\n" +
                         "<to>Tove</to>\n" +
@@ -37,7 +49,7 @@ public class ParserFactoryTests {
 
     @Test
     public void returnsRSSFeedParserOnAtomFeed() {
-        assertTrue(ParserFactory.getParserInstance(
+        assertTrue(parserFactory.getParserInstance(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                         "<feed xmlns=\"http://www.w3.org/2005/Atom\">\n" +
                         "\n" +
@@ -62,7 +74,7 @@ public class ParserFactoryTests {
 
     @Test
     public void returnsRSSFeedParserOnRSSFeed() {
-        assertTrue(ParserFactory.getParserInstance(
+        assertTrue(parserFactory.getParserInstance(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                         "<rss version=\"2.0\">\n" +
                         "\n" +
