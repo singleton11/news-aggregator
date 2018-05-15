@@ -9,6 +9,10 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * It is easy to test this factory without raising all spring boot infrastructure, so instead
+ * autowiring this test suite uses instantiation through constructor.
+ */
 public class ParserFactoryTests {
 
     private ParserFactory parserFactory;
