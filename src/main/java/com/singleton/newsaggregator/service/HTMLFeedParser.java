@@ -2,11 +2,13 @@ package com.singleton.newsaggregator.service;
 
 import com.singleton.newsaggregator.domain.FeedEntry;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class HTMLFeedParser implements FeedParser {
 
     private Document document;
@@ -37,8 +39,19 @@ public class HTMLFeedParser implements FeedParser {
         return feedEntries;
     }
 
-    public HTMLFeedParser(Document document, Map<String, String> source) {
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public Map<String, String> getSource() {
+        return source;
+    }
+
+    public void setSource(Map<String, String> source) {
         this.source = source;
     }
 }
