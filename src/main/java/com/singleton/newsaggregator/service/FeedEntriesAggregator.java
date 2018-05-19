@@ -14,9 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 
 @Service
-public class FeedEntryAggregator {
+public class FeedEntriesAggregator {
 
-    private static Logger logger = LoggerFactory.getLogger(FeedEntryAggregator.class);
+    private static Logger logger = LoggerFactory.getLogger(FeedEntriesAggregator.class);
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -24,14 +24,14 @@ public class FeedEntryAggregator {
     private final ParserFactory parserFactory;
 
     @Autowired
-    public FeedEntryAggregator(FeedEntryService feedEntryService, ParserFactory parserFactory) {
+    public FeedEntriesAggregator(FeedEntryService feedEntryService, ParserFactory parserFactory) {
         this.feedEntryService = feedEntryService;
         this.parserFactory = parserFactory;
     }
 
     @Async
     @Retryable(backoff = @Backoff(delay = 500))
-    public void aggregateEntry(Map<String, String> source) {
+    public void aggregateEntries(Map<String, String> source) {
         var response = restTemplate.getForObject(source.get("link"), String.class);
         var parser = parserFactory.getParserInstance(response, source);
         feedEntryService.saveEntries(parser.parseForFeedEntries());
@@ -39,7 +39,9 @@ public class FeedEntryAggregator {
 
     @Recover
     public void recover(Exception e, Map<String, String> source) {
-        logger.error("Something goes wrong while grabbing news when getting " + source.get("link"),
-                     e);
+        logger.error(
+                "Something goes wrong while grabbing news when getting from " + source.get("link"),
+                e
+        );
     }
 }

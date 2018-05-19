@@ -10,19 +10,19 @@ public class FeedAggregator {
 
     private final AggregatorConfig aggregatorConfig;
 
-    private FeedEntryAggregator feedEntryAggregator;
+    private FeedEntriesAggregator feedEntriesAggregator;
 
     @Autowired
     public FeedAggregator(AggregatorConfig aggregatorConfig,
-                          FeedEntryAggregator feedEntryAggregator) {
+                          FeedEntriesAggregator feedEntriesAggregator) {
         this.aggregatorConfig = aggregatorConfig;
-        this.feedEntryAggregator = feedEntryAggregator;
+        this.feedEntriesAggregator = feedEntriesAggregator;
     }
 
     @Scheduled(fixedDelay = 300_000, initialDelay = 0)
     public void aggregate() {
         for (var source : aggregatorConfig.getSources()) {
-            feedEntryAggregator.aggregateEntry(source);
+            feedEntriesAggregator.aggregateEntries(source);
         }
     }
 }
