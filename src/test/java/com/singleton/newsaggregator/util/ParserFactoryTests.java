@@ -20,10 +20,10 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(classes = TestAppConfig.class)
 public class ParserFactoryTests {
     @Autowired
-    ParserFactory parserFactory;
+    private ParserFactory parserFactory;
 
     @Autowired
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Test
     public void testEmptyStringReturnsHTMLFeedParser() {
