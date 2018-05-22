@@ -1,0 +1,14 @@
+# If source is HTML file, it should contain also `container` and `titleLink` and `body` keys.
+# These keys should be CSS-like selectors. Example: "div > .container"
+# `container` is container where each article located (for example container div or <article> tag)
+# `titleLink` should point to link where text of the link is title of the article
+# `body` should point to div where text of article located
+# If source is RSS/Atom feed, no need to define additional info, link is enough to allow system to aggregate data
+# for the feed
+sources:
+  - link: https://habr.com/
+    container: article
+    titleLink: a.post__title_link
+    body: div.post__text
+  - link: https://bash.im/rss/
+  - link: http://feeds.rucast.net/radio-t
